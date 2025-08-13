@@ -7,6 +7,7 @@ exports.getAllCompanies = async (req, res) => {
       page = 1,
       limit = 10,
       search,
+      name,
       industry,
       country,
       place,
@@ -24,6 +25,10 @@ exports.getAllCompanies = async (req, res) => {
 
     if (search) {
       filter.$text = { $search: search };
+    }
+
+    if (name) {
+      filter.name = new RegExp(name, 'i');
     }
 
     if (industry) {
@@ -60,6 +65,7 @@ exports.getAllCompanies = async (req, res) => {
     // Build sort object
     const sort = {};
     sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    console.log(filter);
 
     // Execute query
     const companies = await Company.find(filter)
