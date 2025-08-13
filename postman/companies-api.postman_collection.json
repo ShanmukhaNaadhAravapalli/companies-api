@@ -1,0 +1,572 @@
+{
+  "info": {
+    "name": "Companies API",
+    "description": "Complete API collection for managing company data with filtering, pagination, and CRUD operations",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "companyId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the server is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Companies",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"]
+        },
+        "description": "Fetch all companies with default pagination (page=1, limit=10)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Companies with Pagination",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?page=1&limit=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number (default: 1)"
+            },
+            {
+              "key": "limit",
+              "value": "5",
+              "description": "Items per page (default: 10)"
+            }
+          ]
+        },
+        "description": "Fetch companies with custom pagination"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Companies by Text",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?search=tech",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "search",
+              "value": "tech",
+              "description": "Search in company name, industry, and location"
+            }
+          ]
+        },
+        "description": "Search companies by text in name, industry, or location"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Industry",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?industry=Technology",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "industry",
+              "value": "Technology",
+              "description": "Filter by industry name (case-insensitive)"
+            }
+          ]
+        },
+        "description": "Filter companies by specific industry"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Country",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?country=United States",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "country",
+              "value": "United States",
+              "description": "Filter by country name (case-insensitive)"
+            }
+          ]
+        },
+        "description": "Filter companies by specific country"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Place",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?place=San Francisco",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "place",
+              "value": "San Francisco",
+              "description": "Filter by place/city (case-insensitive partial match)"
+            }
+          ]
+        },
+        "description": "Filter companies by place/city"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Country and Place",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?country=United States&place=Austin",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "country",
+              "value": "United States",
+              "description": "Filter by country"
+            },
+            {
+              "key": "place",
+              "value": "Austin",
+              "description": "Filter by place/city"
+            }
+          ]
+        },
+        "description": "Filter companies by both country and place"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Employee Range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?minEmployees=100&maxEmployees=500",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "minEmployees",
+              "value": "100",
+              "description": "Minimum number of employees"
+            },
+            {
+              "key": "maxEmployees",
+              "value": "500",
+              "description": "Maximum number of employees"
+            }
+          ]
+        },
+        "description": "Filter companies by employee count range"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Revenue Range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?minRevenue=10000000&maxRevenue=100000000",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "minRevenue",
+              "value": "10000000",
+              "description": "Minimum revenue amount"
+            },
+            {
+              "key": "maxRevenue",
+              "value": "100000000",
+              "description": "Maximum revenue amount"
+            }
+          ]
+        },
+        "description": "Filter companies by revenue range"
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by Founded Year",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?foundedYear=2015",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "foundedYear",
+              "value": "2015",
+              "description": "Filter by specific founded year"
+            }
+          ]
+        },
+        "description": "Filter companies by founded year"
+      },
+      "response": []
+    },
+    {
+      "name": "Sort Companies",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?sortBy=employeeCount&sortOrder=desc",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "employeeCount",
+              "description": "Sort field: createdAt, name, employeeCount, foundedYear, revenue"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Sort order: asc or desc"
+            }
+          ]
+        },
+        "description": "Sort companies by different fields"
+      },
+      "response": []
+    },
+    {
+      "name": "Complex Filter Query",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies?search=tech&industry=Technology&country=United States&minEmployees=100&sortBy=employeeCount&sortOrder=desc&page=1&limit=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"],
+          "query": [
+            {
+              "key": "search",
+              "value": "tech",
+              "description": "Text search"
+            },
+            {
+              "key": "industry",
+              "value": "Technology",
+              "description": "Industry filter"
+            },
+            {
+              "key": "country",
+              "value": "United States",
+              "description": "Country filter"
+            },
+            {
+              "key": "minEmployees",
+              "value": "100",
+              "description": "Minimum employees"
+            },
+            {
+              "key": "sortBy",
+              "value": "employeeCount",
+              "description": "Sort field"
+            },
+            {
+              "key": "sortOrder",
+              "value": "desc",
+              "description": "Sort order"
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number"
+            },
+            {
+              "key": "limit",
+              "value": "5",
+              "description": "Items per page"
+            }
+          ]
+        },
+        "description": "Example of combining multiple filters, sorting, and pagination"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Filter Options",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies/filter-options",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies", "filter-options"]
+        },
+        "description": "Get available filter options for industries, countries, and places"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Company by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies/{{companyId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies", "{{companyId}}"]
+        },
+        "description": "Fetch a specific company by its ID. Set companyId variable first."
+      },
+      "response": []
+    },
+    {
+      "name": "Create Company - Minimal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Startup Inc\",\n  \"industry\": \"Technology\",\n  \"country\": \"United States\",\n  \"place\": \"Silicon Valley, CA\",\n  \"employeeCount\": 25,\n  \"foundedYear\": 2023\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/companies",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"]
+        },
+        "description": "Create a new company with minimal required fields"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Company - Complete",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Innovation Labs\",\n  \"industry\": \"Technology\",\n  \"country\": \"United States\",\n  \"place\": \"Austin, TX\",\n  \"employeeCount\": 150,\n  \"foundedYear\": 2020,\n  \"revenue\": 25000000,\n  \"website\": \"https://innovationlabs.com\",\n  \"description\": \"Cutting-edge technology solutions for modern businesses. We specialize in AI, machine learning, and cloud computing services.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/companies",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies"]
+        },
+        "description": "Create a new company with all available fields"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Company",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Company Name\",\n  \"employeeCount\": 300,\n  \"revenue\": 50000000,\n  \"description\": \"Updated description with new information about the company's growth and expansion.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/companies/{{companyId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies", "{{companyId}}"]
+        },
+        "description": "Update an existing company. Set companyId variable first. Only include fields you want to update."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Company",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/companies/{{companyId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["companies", "{{companyId}}"]
+        },
+        "description": "Delete a company by ID. Set companyId variable first."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Pre-request script to log the request",
+          "console.log('Making request to:', pm.request.url.toString());"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Common tests for all requests",
+          "pm.test('Status code is not 500', function () {",
+          "    pm.response.to.not.have.status(500);",
+          "});",
+          "",
+          "pm.test('Response time is less than 2000ms', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});",
+          "",
+          "pm.test('Response has JSON content type', function () {",
+          "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+          "});",
+          "",
+          "// Set companyId variable if response contains company data",
+          "if (pm.response.code === 200 || pm.response.code === 201) {",
+          "    const responseJson = pm.response.json();",
+          "    if (responseJson.data && responseJson.data._id) {",
+          "        pm.collectionVariables.set('companyId', responseJson.data._id);",
+          "    } else if (responseJson.data && responseJson.data.length > 0 && responseJson.data[0]._id) {",
+          "        pm.collectionVariables.set('companyId', responseJson.data[0]._id);",
+          "    }",
+          "}"
+        ]
+      }
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  }
+}
